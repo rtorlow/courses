@@ -1,0 +1,5 @@
+
+cd /d/zprivat/Coursera/DataScientist/
+git status -s
+git commit -a -m 'restructuring'
+git push
