@@ -6,7 +6,6 @@ ls()
 # ============================================================================= #
 
 .libPaths("D:/R-project/Rpackages")
-# .libPaths("D:/Robert_R/Rpackages")
 require("dplyr")
 require("data.table")
 
@@ -21,8 +20,7 @@ require("data.table")
 # ============================================================================= #
 # Data input ----
 # ============================================================================= #
-setwd("D:/zprivat/Coursera/DataScientist/courses/03_assignment")
-# setwd("D:/Coursera/DataScientist/03_assignment")
+setwd(workingdirectory)
 list.files("./UCI HAR Dataset")
 
   # [1] "activity_labels.txt" "features.txt"        "features_info.txt"  
@@ -84,8 +82,7 @@ names(test[[3]]) <- "activity"
 test_fin        <- as.data.frame(do.call(cbind, test))
 
 # analog "train" data set
-setwd("../train")    
-lsTrainfiles <- list.files()[2:4] # first is folder
+lsTrainfiles <- list.files("../train")[2:4] # first is folder
 
     # load data as list
     train   <- vector(mode = "list", length = length(lsTrainfiles))
