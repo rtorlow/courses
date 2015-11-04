@@ -1,12 +1,12 @@
 
 getwd()
-setwd("D:/zprivat/Coursera/DataScientist/")
+setwd("D:/Coursera/DataScientist/")
 
 if (!file.exists("course3_assign")) {
   dir.create("course3_assign")
 }
 
-setwd("./course3_assign")
+setwd("./03_assignment")
 
 if (!file.exists("./data")) {
   dir.create("./data")
@@ -91,4 +91,43 @@ test2 <- test %>%
 # Q5
 test$cut <- cut(test$Ranking, 5)
 table(test$cut, test$Income.Group)
+
+
+# Quiz4----
+# Question1:
+setwd("./others")
+
+fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06hid.csv" 
+download.file(fileUrl, destfile = "acs.csv")
+
+acs <- as.data.frame(fread("acs.csv"))
+  
+strsplit(names(acs), "wgtp")[123]
+#Question2:
+gdp <- read.csv2("gdp.csv", sep = ",", header = TRUE, skip = 3,
+                 stringsAsFactors = FALSE) %>%
+  filter(Ranking!="" & X!="") %>%
+  mutate(Ranking = as.numeric(Ranking),
+         US.dollars. = as.numeric(gsub(",", "", US.dollars.))) %>%
+  rename(CountryCode = X) 
+
+mean(gdp$US.dollars.)
+# Question3:
+grep("^United",gdp$Economy)
+#
+educ <- read.csv2("educ.csv", sep = ",", header = TRUE, stringsAsFactors = FALSE)
+dat <- inner_join(gdp, educ) 
+
+grep("[Ff]iscal (.*) [Jj]une",dat$Special.Notes, value = TRUE)
+  
+# Question 5:
+library(quantmod)
+amzn = getSymbols("AMZN",auto.assign=FALSE)
+sampleTimes = index(amzn)
+length(sampleTimes[year(sampleTimes)==2012 & weekdays(sampleTimes)=="Montag"])
+
+length(grep("^2012",sampleTimes))
+amzn$weekday <- weekdays(sampleTimes)
+
+
 
